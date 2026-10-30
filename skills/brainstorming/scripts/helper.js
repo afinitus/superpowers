@@ -160,7 +160,9 @@
   // Expose API for explicit use
   window.brainstorm = {
     send: sendEvent,
-    choice: (value, metadata = {}) => sendEvent({ type: 'choice', value, ...metadata })
+    // The server only records events that carry a `choice` field to
+    // state/events, so mirror the value there as clicks do.
+    choice: (value, metadata = {}) => sendEvent({ type: 'choice', value, ...metadata, choice: value })
   };
 
   connect();
